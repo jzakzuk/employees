@@ -35,7 +35,10 @@
           <div class="collapse navbar-collapse" id="navbarsExample03">
             <ul class="navbar-nav me-0 mb-2 mb-sm-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Salir</a>
+                <a class="nav-link active"href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Salir</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  {{ csrf_field() }}
+                </form>
               </li>
             </ul>
           </div>
@@ -61,6 +64,8 @@
       </main>
     </div>
   </div>
+
+
 
 
 

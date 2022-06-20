@@ -1,64 +1,49 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Requerimientos
+* Version de laravel = 8
+* Php version 8.
+* Base de datos .sqlite
+* Composer instalado
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Instrucciones
 
-## About Laravel
+Después de descargar o clonar el repositorio y estar dentro de la carpeta raiz del proyecto ejecutar los siguientes comandos:
+1)  **composer install**
+El anterior comando es para instalar las dependencias del proyecto
+2) **cp .env.example .env**
+El comando anterior es para crear el archivo .env 
+3) **php artisan key:generate**
+El anterior comando genera la clave de la aplicacion de laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Agregar configuracion de base de datos
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Abrir el archivo llamado **.env** y colocar valores a las variables de la base de datos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* DB_CONNECTION=sqlite
+* DB_HOST=127.0.0.1
+* DB_PORT=3306
 
-## Learning Laravel
+Las siguientes variables pueden ser borradas del .env
+* DB_DATABASE
+* DB_USERNAME
+* DB_PASSWORD
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Migracion y datos por defecto
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1) Ubicarse en la raiz del proyecto y crear en la carpeta **database** un archivo llamado **database.sqlite**
+2) Despues de haber ocnfigurado el archivo **.env** se debe ejecutar la migracion para crear las tablas de la base de datos con el siguietne comando:
+**php artisan migrate**
 
-## Laravel Sponsors
+3) Crear usuario y otros datos por defecto. Ejecutar el siguiente comando:
+**php artisan db:seed --class=DatabaseSeeder**
+El anterior comando creará en la base de datos, ademas de datos por defecto necesarios, un usuario por con las siguientes credenciales y con el rol o cargo **'presidente'**: 
+* email: admin@admin.com
+* password: 1234567
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+4) Opcionalmente se pueden crear 100 usuarios de prueba con el comando
+**php artisan db:seed --class=UserSeeder**
+* Si se desea cambiar la cantidad de usuarios para crear se debe modificar el archivo en la carpeta **/database/seeders/UserSeeder.php** buscar la funcion **run** y modificar la parte donde dice **->count(100)** cambiando el numero 100 a la cantidad deseada.
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Ejecutar aplicacion
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+*Para ejecutar la aplicacion usar el comando **php artisan serve**

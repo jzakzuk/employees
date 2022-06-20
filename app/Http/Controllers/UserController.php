@@ -36,8 +36,8 @@ class UserController extends Controller
     }
 
     public function delete( User $user ){
-        if( !Auth::user()->hasRole('presidente') ) 
-            return response()->json(['message' => 'No tienes permisso de eliminar usuarios'], 422);
+        if( !Auth::id() == $user->id )
+            return response()->json(['message' => 'No puedes eliminar tu propio usuario'], 422);
         try{
             $user->delete();
             return response()->json(['message' => 'Se ha eliminado el usuario'], 200);
@@ -46,7 +46,7 @@ class UserController extends Controller
         }
     }
 
-    public function deleteCollaborator( User $user ){
+    /*public function deleteCollaborator( User $user ){
         if( !Auth::user()->hasRole('presidente') ) 
             return response()->json(['message' => 'No tienes permisso de eliminar usuarios'], 422);
         try{
@@ -55,7 +55,7 @@ class UserController extends Controller
         }catch( \Exception $e ){
             return response()->json(['message' => 'Ha ocurrido un error'], 422);
         }
-    }
+    }*/
 
     public function view(User $user){
         return view('dashboard.users.view', compact('user'));

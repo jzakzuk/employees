@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         User::factory()
             ->count(100)
             ->create()->each(function ($user) use ( $roles ){
-                $user->assignRole($roles[ rand(2,3) ]); // assuming 'supscription' was a typo
+                $user->assignRole($roles[ rand(2,3) ]);
             });
     }
 }
