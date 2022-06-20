@@ -46,4 +46,4 @@ El anterior comando creará en la base de datos, ademas de datos por defecto nec
 
 ## Ejecutar aplicacion
 
-*Para ejecutar la aplicacion usar el comando **php artisan serve**
+*Para ejecutar la aplicacion usar el comando **php artisan serve** y luego acceder desde el navegador a la ruta: **http://127.0.0.1:8000** para ingresar al sistema hacer click en el link que dice **"login"** en la parte superior derecha
