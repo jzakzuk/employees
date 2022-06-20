@@ -24,6 +24,37 @@
         <div class="row align-items-start">
             <div class="col-md-6">
                 <div class="mb-3">
+                    <label class="form-label">Cargos</label>
+                        @foreach($roles as $key => $role)
+                            <div class="p-2">
+                                @php
+                                    $not = $role->name == 'presidente' ? '' : 'not_president';
+                                @endphp
+                                <input onclick="checkRole('role_{{$role->id}}','{{$role->name}}')" name="roles[]" type="checkbox" value="{{ $role->id }}" id="role_{{ $role->id }}" class="{{$not}}">
+                                <label onclick="checkRole('role_{{$role->id}}','{{$role->name}}')" for="role_{{$role->id}}">{{ ucfirst($role->name) }}</label>
+                            </div>  
+                        @endforeach
+                </div>
+            </div>
+        </div>
+
+        <div class="row align-items-start">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Jefe</label>
+                    <select name="user_id" class="form-control" id="user_id">
+                        <option value="">Seleccione</option>
+                        @foreach ($bosses as $boss)
+                            <option value="{{ $boss->id }}">{{ $boss->name }} {{ $boss->lastname }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row align-items-start">
+            <div class="col-md-6">
+                <div class="mb-3">
                     <label class="form-label">Identificación</label>
                     <input name="identification" type="text" class="form-control">
                 </div>

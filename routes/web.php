@@ -25,7 +25,9 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware(['aut
 Route::get('/users', [UserController::class, 'index'])->name('users.index')->middleware(['auth']);
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create')->middleware(['auth']);
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit')->middleware(['auth']);
+Route::post('/users/{user}/delete', [UserController::class, 'delete'])->name('users.delete')->middleware(['auth']);
 Route::get('/users/{user}', [UserController::class, 'view'])->name('users.view')->middleware(['auth']);
+Route::get('/users/{user}/collaborators', [UserController::class, 'viewCollaborators'])->name('users.view.collaborators')->middleware(['auth']);
 
 Route::post('/users/store', [UserController::class, 'store'])->name('users.store')->middleware(['auth']);
 Route::post('/users/{user}/update', [UserController::class, 'update'])->name('users.update')->middleware(['auth']);

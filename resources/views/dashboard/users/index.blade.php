@@ -28,6 +28,8 @@
                 <th>Dirección</th>
                 <th>Teléfono</th>
                 <th>Ciudad</th>
+                <th>Cargos</th>
+                <th>Jefe</th>
                 <th></th>
             </tr>
         </thead>
@@ -41,6 +43,8 @@
                 <td>{{ $user->address }}</td>
                 <td>{{ $user->phone }}</td>
                 <td>{{ @$user->city->name }}</td>
+                <td>{{ @$user->role_list }}</td>
+                <td>{{ @$user->boss->name }} {{ @$user->boss->lastname }}</td>
                 <td>
                     @php
                         $edit = [
@@ -49,19 +53,25 @@
                         ]; 
                         $view = [
                             'link' => route('users.view', $user->id),
-                            'dashboard_title' => 'Detalles de: '.$user->name
+                            'dashboard_title' => 'Detalles de: '.$user->name,
+                            'callback' => [
+                                'fn' => 'loadContent',
+                                'args' => [
+                                    'link' => route('users.view.collaborators', $user->id),
+                                    'target' => 'view_vollaborators',
+                                ]
+                            ]
                         ]; 
                     @endphp
                     <button onclick="loadContent({{ json_encode($view) }})" type="button" class="btn btn-primary btn-sm">Ver</button>
                     <button onclick="loadContent({{ json_encode($edit) }})" type="button" class="btn btn-info btn-sm">Editar</button>
-                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Borrar</button>
                 </td>
             </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="8">
+                <td colspan="10">
                     {{  $users->appends(request()->input())->links('pagination::bootstrap-4') }}
                 </td>
             </tr>
@@ -70,23 +80,4 @@
        
     </table>
 
-</div>
-  
-<!-- Modal -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title" id="confirmDeleteModalLabel">Eliminar</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-        ¿Eliminar usuario?
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Confirmar</button>
-    </div>
-    </div>
-</div>
 </div>

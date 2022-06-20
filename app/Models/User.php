@@ -30,6 +30,16 @@ class User extends Authenticatable
         'password',
     ];
 
+    protected $appends = [
+        'role_list',
+    ];
+
+    //get reole list attribute
+    public function getRoleListAttribute()
+    {
+        return implode(', ', $this->roles->pluck('name')->toArray());
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -54,9 +64,16 @@ class User extends Authenticatable
         return $this->belongsTo(\App\Models\City::class, 'city_id');
     }
 
-    /*public function roles()
+    public function boss()
     {
-        return $this->belongsToMany(Role::class);
-    }*/
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
+    }
+
+    public function collaborators()
+    {
+        return $this->hasMany(\App\Models\User::class, 'user_id');
+    }
+
+    
 
 }
